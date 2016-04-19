@@ -1,17 +1,11 @@
 package org.openstack4j.connectors.okhttp;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import okhttp3.Headers;
 import okhttp3.Response;
 import org.openstack4j.api.exceptions.ClientResponseException;
 import org.openstack4j.core.transport.*;
 import org.openstack4j.openstack.logging.Logger;
 import org.openstack4j.openstack.logging.LoggerFactory;
-import org.openstack4j.openstack.magnum.domain.MagnumBayModel;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -121,8 +115,7 @@ public class HttpResponseImpl implements HttpResponse {
     @Override
     public <T> T readEntity(Class<T> typeToReadAs) {
         try {
-            String res = response.body().string();
-            return ObjectMapperSingleton.getContext(typeToReadAs).reader(typeToReadAs).readValue(res);
+            return ObjectMapperSingleton.getContext(typeToReadAs).reader(typeToReadAs).readValue(response.body().string());
         } catch (Exception e) {
             LOG.error(e, e.getMessage());
             throw new ClientResponseException(e.getMessage(), 0, e);
@@ -136,81 +129,5 @@ public class HttpResponseImpl implements HttpResponse {
     @Override
     public String getContentType() {
         return header(ClientConstants.HEADER_CONTENT_TYPE);
-    }
-
-    public static void main(String[] args) {
-        String res = "{\n" +
-                "    \"links\": [{\n" +
-                "        \"href\": \"http://127.0.0.1:9511/v1/baymodels/2ec5ee98-62c4-4776-ae53-f052e38a382c\",\n" +
-                "        \"rel\": \"self\"\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"href\": \"http://127.0.0.1:9511/baymodels/2ec5ee98-62c4-4776-ae53-f052e38a382c\",\n" +
-                "        \"rel\": \"bookmark\"\n" +
-                "    }],\n" +
-                "    \"labels\": {},\n" +
-                "    \"updated_at\": null,\n" +
-                "    \"master_flavor_id\": null,\n" +
-                "    \"uuid\": \"2ec5ee98-62c4-4776-ae53-f052e38a382c\",\n" +
-                "    \"no_proxy\": null,\n" +
-                "    \"https_proxy\": null,\n" +
-                "    \"tls_disabled\": false,\n" +
-                "    \"keypair_id\": \"testkey\",\n" +
-                "    \"public\": false,\n" +
-                "    \"http_proxy\": null,\n" +
-                "    \"docker_volume_size\": 5,\n" +
-                "    \"server_type\": \"vm\",\n" +
-                "    \"external_network_id\": \"ext-network\",\n" +
-                "    \"cluster_distro\": \"fedora-atomic\",\n" +
-                "    \"image_id\": \"fedora-21-atomic-5\",\n" +
-                "    \"volume_driver\": null,\n" +
-                "    \"registry_enabled\": false,\n" +
-                "    \"apiserver_port\": null,\n" +
-                "    \"name\": \"k8sbaymodel\",\n" +
-                "    \"created_at\": \"2016-04-13T03:22:48+00:00\",\n" +
-                "    \"network_driver\": \"flannel\",\n" +
-                "    \"fixed_network\": null,\n" +
-                "    \"coe\": \"kubernetes\",\n" +
-                "    \"flavor_id\": \"m1.small\",\n" +
-                "    \"dns_nameserver\": \"8.8.8.8\"\n" +
-                "}";
-        ObjectMapper mapper = new ObjectMapper();
-
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
-        MagnumBayModel m = null;
-        try {
-            m = mapper.reader(MagnumBayModel.class).readValue(res);
-            System.out.println(m.getDnsNameserver());
-            System.out.println(m.getCoe());
-
-            //System.out.println(mapper.writeValueAsString(m));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ObjectMapper rootMapper = new ObjectMapper();
-        rootMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        rootMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        rootMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
-        rootMapper.enable(DeserializationFeature.UNWRAP_ROOT_VALUE);
-        rootMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-        rootMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
-        try {
-
-
-            String s = rootMapper.writeValueAsString(m);
-
-            MagnumBayModel m2 = rootMapper.reader(MagnumBayModel.class).readValue(s);
-            System.out.println(m2.getCoe());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
