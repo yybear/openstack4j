@@ -13,68 +13,48 @@ public class MagnumBayModel implements BayModel {
 
     private String name;
 
-    @JsonProperty("flavor_id")
     private String flavorId;
 
-    @JsonProperty("master_flavor_id")
     private String masterFlavorId;
 
-    @JsonProperty("no_proxy")
     private String noProxy;
 
-    @JsonProperty("https_proxy")
     private String httpsProxy;
 
-    @JsonProperty("tls_disabled")
     private boolean tlsDisabled;
 
-    @JsonProperty("keypair_id")
     private String keypairId;
 
     @JsonProperty("public")
     private boolean isPublic;
 
-    @JsonProperty("docker_volume_size")
     private Integer dockerVolumeSize;
 
-    @JsonProperty("server_type")
     private String serverType;
 
-    @JsonProperty("external_network_id")
     private String externalNetworkId;
 
-    @JsonProperty("cluster_distro")
     private String clusterDistro;
 
-    @JsonProperty("image_id")
     private String imageId;
 
-    @JsonProperty("volume_driver")
     private String volumeDriver;
 
-    @JsonProperty("registry_enabled")
     private boolean registryEnabled;
 
-    @JsonProperty("apiserver_port")
     private String apiserverPort;
 
-    @JsonProperty("network_driver")
     private String networkDriver;
 
-    /*@JsonProperty("dns_nameserver")*/
     private String dnsNameserver;
     
     private String coe;
 
-    @JsonProperty("fixed_network")
     private String fixedNetwork;
 
-    @JsonProperty("created_at")
     private String createdAt;
 
-    @JsonProperty("updated_at")
     private String updatedAt;
-
 
     @Override
     public String getId() {
