@@ -1,17 +1,18 @@
 package org.openstack4j.openstack.identity.internal;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.List;
-
 import org.openstack4j.api.identity.RoleService;
 import org.openstack4j.core.transport.HttpMethod;
 import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.identity.Role;
-import org.openstack4j.openstack.identity.domain.KeystoneCreateRole;
 import org.openstack4j.openstack.identity.domain.KeystoneRole;
 import org.openstack4j.openstack.identity.domain.KeystoneRole.Roles;
 import org.openstack4j.openstack.internal.BaseOpenStackService;
+
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
+//import org.openstack4j.openstack.identity.domain.KeystoneCreateRole;
 
 /**
  * Identity Role based Operations Implementation
@@ -59,7 +60,6 @@ public class RoleServiceImpl extends BaseOpenStackService implements RoleService
 	 * @param tenantId the tenant id
 	 * @param userId the user id
 	 * @param roleId the role id
-	 * @param the action response
 	 */
 	private ActionResponse addRemoveRoles(HttpMethod method, String tenantId, String userId, String roleId) {
 		checkNotNull(userId);
@@ -119,7 +119,8 @@ public class RoleServiceImpl extends BaseOpenStackService implements RoleService
 	@Override
 	public Role create(String name) {
 		checkNotNull(name);
-		return post(KeystoneRole.class, uri("/OS-KSADM/roles")).entity(new KeystoneCreateRole(name)).execute();
+		//return post(KeystoneRole.class, uri("/OS-KSADM/roles")).entity(new KeystoneCreateRole(name)).execute();
+		return null;
 	}
 
 	/**

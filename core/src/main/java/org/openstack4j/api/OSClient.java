@@ -1,11 +1,10 @@
 package org.openstack4j.api;
 
-import java.util.Set;
-
 import org.openstack4j.api.compute.ComputeService;
 import org.openstack4j.api.heat.HeatService;
 import org.openstack4j.api.identity.IdentityService;
 import org.openstack4j.api.image.ImageService;
+import org.openstack4j.api.magnum.MagnumService;
 import org.openstack4j.api.manila.ShareService;
 import org.openstack4j.api.networking.NetworkingService;
 import org.openstack4j.api.sahara.SaharaService;
@@ -16,6 +15,8 @@ import org.openstack4j.api.types.Facing;
 import org.openstack4j.api.types.ServiceType;
 import org.openstack4j.model.identity.Access;
 import org.openstack4j.model.identity.Token;
+
+import java.util.Set;
 
 /**
  * A client which has been identified.  Any calls spawned from this session will automatically utilize the original authentication that was
@@ -208,5 +209,12 @@ public interface OSClient {
 	 * @return the Sahara service
 	 */
 	SaharaService sahara();
-	
+
+
+	/**
+	 * Returns the Magnum Service API
+	 *
+	 * @return the Magnum service
+     */
+	MagnumService magnum();
 }

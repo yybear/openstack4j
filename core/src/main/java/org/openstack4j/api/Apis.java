@@ -4,6 +4,7 @@ import org.openstack4j.api.compute.ComputeService;
 import org.openstack4j.api.heat.HeatService;
 import org.openstack4j.api.identity.IdentityService;
 import org.openstack4j.api.image.ImageService;
+import org.openstack4j.api.magnum.MagnumService;
 import org.openstack4j.api.manila.ShareService;
 import org.openstack4j.api.networking.NetworkingService;
 import org.openstack4j.api.sahara.SaharaService;
@@ -88,6 +89,14 @@ public class Apis {
      */
 	public static ShareService getShareServices() {
 		return get(ShareService.class);
+	}
+
+	/**
+	 * Gets the (Magnum) Containers services API
+	 * @return the magnum services
+	 */
+	public static MagnumService getMagnumService() {
+		return get(MagnumService.class);
 	}
 	
 	private static APIProvider initializeProvider() {

@@ -9,6 +9,8 @@ import org.openstack4j.api.exceptions.ApiNotFoundException;
 import org.openstack4j.api.heat.*;
 import org.openstack4j.api.identity.*;
 import org.openstack4j.api.image.ImageService;
+import org.openstack4j.api.magnum.BayModelService;
+import org.openstack4j.api.magnum.MagnumService;
 import org.openstack4j.api.manila.*;
 import org.openstack4j.api.networking.*;
 import org.openstack4j.api.networking.ext.*;
@@ -24,6 +26,8 @@ import org.openstack4j.openstack.compute.internal.ext.*;
 import org.openstack4j.openstack.heat.internal.*;
 import org.openstack4j.openstack.identity.internal.*;
 import org.openstack4j.openstack.image.internal.ImageServiceImpl;
+import org.openstack4j.openstack.magnum.internal.BayModelServiceImpl;
+import org.openstack4j.openstack.magnum.internal.MagnumServiceImpl;
 import org.openstack4j.openstack.manila.internal.*;
 import org.openstack4j.openstack.networking.internal.*;
 import org.openstack4j.openstack.networking.internal.ext.*;
@@ -139,6 +143,9 @@ public class DefaultAPIProvider implements APIProvider {
 		bind(FirewallService.class, FirewallServiceImpl.class);
 		bind(FirewallRuleService.class, FirewallRuleServiceImpl.class);
 		bind(FirewallPolicyService.class, FirewallPolicyServiceImpl.class);
+
+		bind(MagnumService.class, MagnumServiceImpl.class);
+		bind(BayModelService.class, BayModelServiceImpl.class);
 	}
 
 	/**

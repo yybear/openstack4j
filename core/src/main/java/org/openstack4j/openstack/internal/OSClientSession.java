@@ -12,6 +12,7 @@ import org.openstack4j.api.heat.HeatService;
 import org.openstack4j.api.identity.EndpointURLResolver;
 import org.openstack4j.api.identity.IdentityService;
 import org.openstack4j.api.image.ImageService;
+import org.openstack4j.api.magnum.MagnumService;
 import org.openstack4j.api.manila.ShareService;
 import org.openstack4j.api.networking.NetworkingService;
 import org.openstack4j.api.sahara.SaharaService;
@@ -331,6 +332,11 @@ public class OSClientSession implements OSClient, EndpointTokenProvider {
     @Override
     public SaharaService sahara() {
         return Apis.getSaharaServices();
+    }
+
+    @Override
+    public MagnumService magnum() {
+        return Apis.getMagnumService();
     }
 
     @Override

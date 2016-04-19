@@ -13,6 +13,7 @@ public enum ServiceType {
 	ORCHESTRATION("heat", "orchestration"),
 	SAHARA("sahara", "data_processing"),
 	SHARE("manila", "share"),
+	MAGNUM("magnum", "container"),
 	UNKNOWN("NA", "NA")
 	;
 	
