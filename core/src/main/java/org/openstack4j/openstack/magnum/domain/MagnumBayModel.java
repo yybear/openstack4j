@@ -1,14 +1,12 @@
 package org.openstack4j.openstack.magnum.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import org.openstack4j.model.magnum.BayModel;
 import org.openstack4j.model.magnum.builder.BayModelBuilder;
 
 /**
  * Created by ganqing(0027006935@zte.com.cn) on 2016/4/19.
  */
-@JsonRootName("baymodel")
 public class MagnumBayModel implements BayModel {
     @JsonProperty("uuid")
     private String id;
