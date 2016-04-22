@@ -1,5 +1,6 @@
 package org.openstack4j.connectors.okhttp;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.Headers;
 import okhttp3.Response;
 import org.openstack4j.api.exceptions.ClientResponseException;
@@ -115,7 +116,9 @@ public class HttpResponseImpl implements HttpResponse {
     @Override
     public <T> T readEntity(Class<T> typeToReadAs) {
         try {
-            return ObjectMapperSingleton.getContext(typeToReadAs).reader(typeToReadAs).readValue(response.body().string());
+            String res = response.body().string();
+            ObjectMapper objectMapper = ObjectMapperSingleton.getContext(typeToReadAs);
+            return objectMapper.reader(typeToReadAs).readValue(res);
         } catch (Exception e) {
             LOG.error(e, e.getMessage());
             throw new ClientResponseException(e.getMessage(), 0, e);

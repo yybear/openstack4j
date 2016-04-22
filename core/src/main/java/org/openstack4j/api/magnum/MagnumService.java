@@ -13,4 +13,18 @@ public interface MagnumService extends RestService {
      * @return the bayModel service
      */
     BayModelService bayModels();
+
+    /**
+     * Bay Service API
+     *
+     * @return the bay service
+     */
+    BayService bays();
+
+    /**
+     * Pod Service API
+     *
+     * @return the pod service
+     */
+    PodService pods();
 }

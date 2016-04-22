@@ -2,7 +2,9 @@ package org.openstack4j.openstack.magnum.internal;
 
 import org.openstack4j.api.Apis;
 import org.openstack4j.api.magnum.BayModelService;
+import org.openstack4j.api.magnum.BayService;
 import org.openstack4j.api.magnum.MagnumService;
+import org.openstack4j.api.magnum.PodService;
 import org.openstack4j.openstack.internal.BaseOpenStackService;
 
 /**
@@ -12,5 +14,15 @@ public class MagnumServiceImpl extends BaseOpenStackService implements MagnumSer
     @Override
     public BayModelService bayModels() {
         return Apis.get(BayModelService.class);
+    }
+
+    @Override
+    public BayService bays() {
+        return Apis.get(BayService.class);
+    }
+
+    @Override
+    public PodService pods() {
+        return null;
     }
 }

@@ -1,5 +1,14 @@
 package org.openstack4j.connectors.okhttp;
 
+import com.google.common.io.ByteStreams;
+import okhttp3.*;
+import okhttp3.internal.Util;
+import org.openstack4j.core.transport.*;
+import org.openstack4j.core.transport.functions.EndpointURIFromRequestFunction;
+import org.openstack4j.core.transport.internal.HttpLoggingFilter;
+import org.openstack4j.openstack.logging.Logger;
+import org.openstack4j.openstack.logging.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -10,27 +19,6 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import okhttp3.Call;
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.internal.Util;
-import org.openstack4j.core.transport.ClientConstants;
-import org.openstack4j.core.transport.Config;
-import org.openstack4j.core.transport.HttpMethod;
-import org.openstack4j.core.transport.HttpRequest;
-import org.openstack4j.core.transport.ObjectMapperSingleton;
-import org.openstack4j.core.transport.UntrustedSSL;
-import org.openstack4j.core.transport.functions.EndpointURIFromRequestFunction;
-import org.openstack4j.core.transport.internal.HttpLoggingFilter;
-import org.openstack4j.openstack.logging.Logger;
-import org.openstack4j.openstack.logging.LoggerFactory;
-
-import com.google.common.io.ByteStreams;
 
 /**
  * HttpCommand is responsible for executing the actual request driven by the HttpExecutor. 
@@ -108,6 +96,8 @@ public final class HttpCommand<R> {
             if (InputStream.class.isAssignableFrom(request.getEntity().getClass())) {
                 byte[] content = ByteStreams.toByteArray((InputStream)request.getEntity());
                 body = RequestBody.create(MediaType.parse(request.getContentType()), content);
+            } else if (request.getEntity() instanceof String) {
+                body = RequestBody.create(MediaType.parse(request.getContentType()), ((String) request.getEntity()).getBytes());
             } else {
                 String content = ObjectMapperSingleton.getContext(request.getEntity().getClass()).writer().writeValueAsString(request.getEntity());
                 body = RequestBody.create(MediaType.parse(request.getContentType()), content);

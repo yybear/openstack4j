@@ -3,6 +3,10 @@ package org.openstack4j.openstack.magnum.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.openstack4j.model.magnum.BayModel;
 import org.openstack4j.model.magnum.builder.BayModelBuilder;
+import org.openstack4j.openstack.common.ListResult;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ganqing(0027006935@zte.com.cn) on 2016/4/19.
@@ -51,6 +55,8 @@ public class MagnumBayModel implements BayModel {
     private String coe;
 
     private String fixedNetwork;
+
+    private Map<String, String> labels;
 
     private String createdAt;
 
@@ -162,6 +168,11 @@ public class MagnumBayModel implements BayModel {
     }
 
     @Override
+    public Map<String, String> getLabels() {
+        return labels;
+    }
+
+    @Override
     public String getCreatedAt() {
         return createdAt;
     }
@@ -171,11 +182,21 @@ public class MagnumBayModel implements BayModel {
         return updatedAt;
     }
 
+    public static class BayModels extends ListResult<MagnumBayModel> {
+
+        private static final long serialVersionUID = 1L;
+        @JsonProperty("baymodels")
+        protected List<MagnumBayModel> list;
+
+        public List<MagnumBayModel> value() {
+            return list;
+        }
+    }
+
     @Override
     public BayModelBuilder toBuilder() {
         return new BayModelConcreteBuilder(this);
     }
-
 
     public static class BayModelConcreteBuilder implements BayModelBuilder {
         private MagnumBayModel m;
@@ -186,12 +207,6 @@ public class MagnumBayModel implements BayModel {
         
         BayModelConcreteBuilder(MagnumBayModel m) {
             this.m = m;
-        }
-        
-        @Override
-        public BayModelBuilder id(String id) {
-            m.id = id;
-            return this;
         }
 
         @Override
@@ -249,20 +264,8 @@ public class MagnumBayModel implements BayModel {
         }
 
         @Override
-        public BayModelBuilder serverType(String serverType) {
-            m.serverType = serverType;
-            return this;
-        }
-
-        @Override
         public BayModelBuilder externalNetworkId(String externalNetworkId) {
             m.externalNetworkId = externalNetworkId;
-            return this;
-        }
-
-        @Override
-        public BayModelBuilder clusterDistro(String clusterDistro) {
-            m.clusterDistro = clusterDistro;
             return this;
         }
 
@@ -275,12 +278,6 @@ public class MagnumBayModel implements BayModel {
         @Override
         public BayModelBuilder registryEnabled(boolean registryEnabled) {
             m.registryEnabled = registryEnabled;
-            return this;
-        }
-
-        @Override
-        public BayModelBuilder apiserverPort(String apiserverPort) {
-            m.apiserverPort = apiserverPort;
             return this;
         }
 
@@ -315,14 +312,14 @@ public class MagnumBayModel implements BayModel {
         }
 
         @Override
-        public BayModelBuilder createdAt(String createdAt) {
-            m.createdAt = createdAt;
+        public BayModelBuilder labels(Map<String, String> labels) {
+            m.labels = labels;
             return this;
         }
 
         @Override
-        public BayModelBuilder updatedAt(String updatedAt) {
-            m.updatedAt = updatedAt;
+        public BayModelBuilder httpProxy(String httpProxy) {
+            m.httpsProxy = httpProxy;
             return this;
         }
 

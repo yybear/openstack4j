@@ -1,31 +1,22 @@
 package org.openstack4j.openstack.internal;
 
-import static org.openstack4j.core.transport.ClientConstants.HEADER_USER_AGENT;
-import static org.openstack4j.core.transport.ClientConstants.USER_AGENT;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
-
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
 import org.openstack4j.api.client.CloudProvider;
 import org.openstack4j.api.exceptions.OS4JException;
 import org.openstack4j.api.types.ServiceType;
-import org.openstack4j.core.transport.ClientConstants;
-import org.openstack4j.core.transport.ExecutionOptions;
-import org.openstack4j.core.transport.HttpMethod;
-import org.openstack4j.core.transport.HttpRequest;
+import org.openstack4j.core.transport.*;
 import org.openstack4j.core.transport.HttpRequest.RequestBuilder;
-import org.openstack4j.core.transport.HttpResponse;
 import org.openstack4j.core.transport.internal.HttpExecutor;
 import org.openstack4j.model.ModelEntity;
-import org.openstack4j.model.common.Payload;
 import org.openstack4j.model.common.ActionResponse;
+import org.openstack4j.model.common.Payload;
 import org.openstack4j.model.identity.Access.Service;
 
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
+import java.util.*;
+
+import static org.openstack4j.core.transport.ClientConstants.HEADER_USER_AGENT;
+import static org.openstack4j.core.transport.ClientConstants.USER_AGENT;
 
 public class BaseOpenStackService {
 
@@ -155,6 +146,12 @@ public class BaseOpenStackService {
         public Invocation<R> entity(Payload<?> entity) {
             req.entity(entity);
             req.contentType(ClientConstants.CONTENT_TYPE_OCTECT_STREAM);
+            return this;
+        }
+
+        public Invocation<R> entity(String entity) {
+            req.entity(entity);
+            req.contentType(ClientConstants.CONTENT_TYPE_JSON);
             return this;
         }
 
