@@ -146,7 +146,7 @@ public class DefaultAPIProvider implements APIProvider {
 		bind(BayModelService.class, BayModelServiceImpl.class);
 		bind(BayService.class, BayServiceImpl.class);
 		bind(PodService.class, PodServiceImpl.class);
-		bind(ServiceService.class, ServiceServiceImpl.class);
+		bind(CoeServiceService.class, CoeServiceServiceImpl.class);
 		bind(ReplicationControllerService.class, ReplicationControllerServiceImpl.class);
 		bind(ContainerService.class, ContainerServiceImpl.class);
 	}

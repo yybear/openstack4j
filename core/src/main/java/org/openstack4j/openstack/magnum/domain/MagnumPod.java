@@ -3,6 +3,7 @@ package org.openstack4j.openstack.magnum.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.openstack4j.model.magnum.Pod;
 import org.openstack4j.model.magnum.builder.PodBuilder;
+import org.openstack4j.openstack.common.ListResult;
 
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,17 @@ public class MagnumPod implements Pod {
     @Override
     public PodBuilder toBuilder() {
         return new MagnumPodBuilder(this);
+    }
+
+    public static class Pods extends ListResult<MagnumPod> {
+
+        private static final long serialVersionUID = 1L;
+        @JsonProperty("pods")
+        protected List<MagnumPod> list;
+
+        public List<MagnumPod> value() {
+            return list;
+        }
     }
 
     public static class MagnumPodBuilder implements PodBuilder {

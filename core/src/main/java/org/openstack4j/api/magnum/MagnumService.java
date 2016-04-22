@@ -27,4 +27,25 @@ public interface MagnumService extends RestService {
      * @return the pod service
      */
     PodService pods();
+
+    /**
+     * Coe Service Service API
+     *
+     * @return the coe service service
+     */
+    CoeServiceService coeServices();
+
+    /**
+     * Replication Controllers Service API
+     *
+     * @return the replication controller service
+     */
+    ReplicationControllerService replicationControllers();
+
+    /**
+     * Pod Service API
+     *
+     * @return the pod service
+     */
+    ContainerService containers();
 }

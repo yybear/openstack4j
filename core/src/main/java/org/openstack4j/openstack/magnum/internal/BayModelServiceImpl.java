@@ -40,7 +40,7 @@ public class BayModelServiceImpl extends BaseMagnumServices implements BayModelS
     public BayModel create(BayModel bayModel) {
         checkNotNull(bayModel);
         return post(MagnumBayModel.class, PATH_BAYMODELS)
-                .entity(bayModel.toBuilder().createdAt(null).updatedAt(null).build()).execute();
+                .entity(bayModel.toBuilder().build()).execute();
     }
 
     @Override
