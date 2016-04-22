@@ -80,6 +80,7 @@ public class ContainerServiceImpl extends BaseMagnumServices implements Containe
     @Override
     public ActionResponse execute(String id, String command) {
         checkNotNull(id, command);
+
         return put(ActionResponse.class, uri("/containers/%s/execute?command=%s", id, command)).execute();
     }
 }
